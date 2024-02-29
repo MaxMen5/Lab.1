@@ -49,7 +49,7 @@ int main(int argc, char* argv[]) {
 
 	if (interface) { cout << "\nОтвет:\n"; }
 
-	for (int i = 1; i < kol; i++) {
+	for (int i = 0; i < kol; i++) {
 		output = stack.pop();
 		if (output > 0) {
 			cout << output << endl;
