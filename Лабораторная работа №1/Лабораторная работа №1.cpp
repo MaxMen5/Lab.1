@@ -1,56 +1,60 @@
-﻿#include <iostream>
+#include <iostream>
 using namespace std;
 
 struct Node {
-	int a = 0;
-	Node* sec = nullptr;
+	int param = 0;
+	Node* second = nullptr;
 };
 
-struct Stek {
+struct Stack {
 	Node* now = nullptr;
+	int count = 0;
+	int counting() { return count; }
 
-	void ins(int z) {
-		Node* x = new Node();
-		x->a = z;
-		x->sec = now;
-		now = x;
+	void insert(int inputValue) {
+		Node* node = new Node();
+		node->param = inputValue;
+		node->second = now;
+		now = node;
+		count++;
 	}
 
 	int pop() {
-		Node* x = now;
-		int ans = x->a;
-		now = x->sec;
-		delete x;
-		return ans;
+		Node* node = now;
+		int answer = node->param;
+		now = node->second;
+		delete node;
+		count--;
+		return answer;
 	}
 };
 
 int main(int argc, char* argv[]) {
-
-	int n = 1, k = 0, c = 0, q = 0;
-	bool interface = true;
-	Stek s;
-	string arg;
-	if (argc > 1) { arg = argv[1]; }
-	if (arg == "false" || arg == "0") { interface = false; }
 	setlocale(LC_ALL, "ru");
+	int value = 1, kol = 0, output = 0;
+	bool interface = true, isPositive = false;
+	Stack stack;
+	string argument;
+
+	if (argc > 1) { argument = argv[1]; }
+	if (argument == "false" || argument == "0") { interface = false; }
 	if (interface) { cout << "Для запуска интерфейса без дополнительных пояснений, передать параметром значение \"false\" или \"0\"\nВведите значения:\n"; }
-	
-	while (n != 0) {
-		k++;
-		if (interface) { cout << "Число " << k << " = "; }
-		cin >> n;
-		s.ins(n);
+
+	while (true) {
+		if (interface) { cout << "Число " << ++kol << " = "; }
+		cin >> value;
+		if (value == 0) { break; }
+		stack.insert(value);
 	}
 
 	if (interface) { cout << "\nОтвет:\n"; }
-	
-	for (int i = 0; i < k; i++) {
-		c = s.pop();
-		if (c > 0) {
-			cout << c << endl;
-			q++;
+
+	for (int i = 1; i < kol; i++) {
+		output = stack.pop();
+		if (output > 0) {
+			cout << output << endl;
+			isPositive = true;
 		}
 	}
-	if (q == 0) { cout << "Положительных чисел в стеке нет!"; }
+	if (!isPositive) { cout << "Положительных чисел в стеке нет!\n"; }
 }
