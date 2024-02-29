@@ -41,7 +41,8 @@ int main(int argc, char* argv[]) {
 	if (interface) { cout << "Для запуска интерфейса без дополнительных пояснений, передать параметром значение \"false\" или \"0\"\nВведите значения:\n"; }
 
 	while (true) {
-		if (interface) { cout << "Число " << ++kol << " = "; }
+		kol++;
+		if (interface) { cout << "Число " << kol << " = "; }
 		cin >> value;
 		if (value == 0) { break; }
 		stack.insert(value);
